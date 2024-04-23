@@ -58,20 +58,15 @@ def female_grad_scatterplot(grad_students_df):
         Returns:
             
     '''
-    grad_students_df['Female Grad Students'] = pd.to_numeric(grad_students_df['Female Grad Students'])
+    # Creating variables to call them easier when plotting
     x = grad_students_df['Year']
     y = grad_students_df['Female Grad Students']
 
-    coefficients = np.polyfit(x,y,1)
-    poly = np.poly1d(coefficients)
-
+    # Creating scatterplot, changing color, tick labels, axes
     plt.scatter(x,y)
-
-    plt.plot(x, poly(x), color='magenta')
-
-    plt.xlabel('Year', color='darkmagenta')
+    plt.xlabel('Year', color='darkmagenta', fontweight='bold')
     plt.tick_params(axis='x', colors='darkmagenta')
-    plt.ylabel('Female Grad Students', color='darkmagenta')
+    plt.ylabel('Female Grad Students', color='darkmagenta', fontweight='bold')
     plt.tick_params(axis='y', colors='darkmagenta')
     plt.gca().spines['top'].set_color('darkmagenta')
     plt.gca().spines['bottom'].set_color('darkmagenta')
@@ -82,7 +77,12 @@ def female_grad_scatterplot(grad_students_df):
     plt.scatter(grad_students_df['Year'], grad_students_df['Female Grad Students'], label='Female Grad Students', c='hotpink')
     plt.legend()
 
-def create_bar_chart():
+    #Creating line regression
+    coefficients = np.polyfit(x,y,1)
+    poly = np.poly1d(coefficients)
+    plt.plot(x, poly(x), color='magenta')
+
+def male_grad_scatterplot(grad_students_df):
     '''
     This function 
     
@@ -92,7 +92,29 @@ def create_bar_chart():
         Returns:
             
     '''
-    pass
+    # Creating variables to call them easier when plotting
+    x = grad_students_df['Year']
+    y = grad_students_df['Male Grad Students']
+
+    # Creating scatterplot, changing color, tick labels, axes
+    plt.scatter(x,y)
+    plt.xlabel('Year', color='navy', fontweight='bold')
+    plt.tick_params(axis='x', colors='navy')
+    plt.ylabel('Number of Grad Students', color='navy', fontweight='bold')
+    plt.tick_params(axis='y', colors='navy')
+    plt.gca().spines['top'].set_color('navy')
+    plt.gca().spines['bottom'].set_color('navy')
+    plt.gca().spines['left'].set_color('navy')
+    plt.gca().spines['right'].set_color('navy')
+    plt.gca().set_facecolor('aliceblue')
+    plt.title('Male vs Female Grad Students', fontdict={'fontsize': 16, 'fontweight': 'bold', 'color': 'navy'})
+    plt.scatter(grad_students_df['Year'], grad_students_df['Male Grad Students'], label='Male Grad Students', c='blue')
+    plt.legend()
+
+    #Creating line regression
+    coefficients = np.polyfit(x,y,1)
+    poly = np.poly1d(coefficients)
+    plt.plot(x, poly(x), color='navy')
 
 def create_line_plot():
     '''
@@ -109,6 +131,7 @@ def main():
     new_df = read_in_csv()
     print(clean_up_data(new_df))
     female_grad_scatterplot(new_df)
+    male_grad_scatterplot(new_df)
     plt.show()
 
 if __name__ == "__main__":
