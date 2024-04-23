@@ -46,8 +46,6 @@ def clean_up_data(grad_students_df):
     grad_students_df = grad_students_df.fillna(method="ffill").fillna(method="bfill")
     grad_students_df = grad_students_df.apply(lambda row: row.fillna(row.interpolate()), axis=1)
 
-    print(grad_students_df.dtypes)
-
     return grad_students_df
 
 def female_grad_scatterplot(grad_students_df):
